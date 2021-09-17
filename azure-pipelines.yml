@@ -17,13 +17,10 @@ steps:
     version: '5.0.x'
     includePreviewVersions: true 
   
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet test'
+- task: PublishTestResults@2
   inputs:
-    command: 'test'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
-    publishTestResults: true
-    projects: 'MyTestLibrary' 
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
   
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage report'
